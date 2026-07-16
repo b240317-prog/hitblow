@@ -32,11 +32,17 @@ def play():
         hit, blow = judge(secret, guess)
         print(f"  Hit={hit}  Blow={blow}")
 
-            # ===== ③ 勝利時に足す（スコア・履歴 など）: ここに書く =====
-
         if hit == digits:
+            # ===== ③ 勝利時に足す（スコア・履歴 など）: ここに書く =====
             print(f"正解！ {tries} 回で当たり（答え {secret}）")
             break
+
+        # 挑戦回数が最大回数の半分以上になったらヒントを表示
+        if tries / max_tries >= 0.5:
+            if int(guess) > int(secret):
+                print("【ヒント】正解は入力した数字よりも「小さい」です")
+            elif int(guess) < int(secret):
+                print("【ヒント】正解は入力した数字よりも「大きい」です")
 
         if tries >= max_tries:
             print(f"ゲームオーバー！答えは {secret} でした。")
