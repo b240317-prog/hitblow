@@ -20,6 +20,8 @@ def play():
     print(f"Hit & Blow（{digits} 桁・重複なし）")
     print(f"解答可能回数は{max_tries}回です。")
 
+    print(f"解答可能回数は{max_tries}回です．")
+
     tries = 0
     while True:
         guess = input("予想 > ").strip()
@@ -31,6 +33,10 @@ def play():
         tries += 1
         hit, blow = judge(secret, guess)
         print(f"  Hit={hit}  Blow={blow}")
+
+        if hit == digits:
+
+            # ===== ③ 勝利時に足す（スコア・履歴 など）: ここに書く =====
 
         if hit == digits:
             print(f"正解！ {tries} 回で当たり（答え {secret}）")
