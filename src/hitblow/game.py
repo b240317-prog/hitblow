@@ -1,7 +1,7 @@
 from .core import judge, make_secret
 
 
-def play(digits=3):
+def play():
 
     # ===== ① 開始時に足す（難易度・あいさつ など）: ここに書く =====
     while True:
