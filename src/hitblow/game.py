@@ -3,11 +3,13 @@ import time
 from .core import judge, make_secret
 from .result import calculate_score, format_time
 from .hint import make_hint
+from .greet import hello
 
 def play():
 
     # ===== ① 開始時に足す（難易度・あいさつ など）: ここに書く =====
     while True:
+	hello(input());
         level = input("何桁で遊びますか？（3～10）> ").strip()
 
         if level.isdigit():
