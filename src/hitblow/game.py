@@ -1,5 +1,7 @@
-from .core import judge, make_secret
+import time
 
+from .core import judge, make_secret
+from .result import calculate_score, format_time
 
 def play():
 
@@ -20,6 +22,9 @@ def play():
     print(f"Hit & Blow（{digits} 桁・重複なし）")
     print(f"解答可能回数は{max_tries}回です。")
 
+    # ストップウォッチ開始
+    start_time = time.time()
+
     tries = 0
     while True:
         guess = input("予想 > ").strip()
@@ -32,17 +37,28 @@ def play():
         hit, blow = judge(secret, guess)
         print(f"  Hit={hit}  Blow={blow}")
 
-        if hit == digits:
-            # ===== ③ 勝利時に足す（スコア・履歴 など）: ここに書く =====
-            print(f"正解！ {tries} 回で当たり（答え {secret}）")
-            break
-
         # 挑戦回数が最大回数の半分以上になったらヒントを表示
-        if tries / max_tries >= 0.5:
+        if tries >= max_tries / 2:
             if int(guess) > int(secret):
                 print("【ヒント】正解は入力した数字よりも「小さい」です")
             elif int(guess) < int(secret):
                 print("【ヒント】正解は入力した数字よりも「大きい」です")
+
+        if hit == digits:
+            end_time = time.time()
+            elapsed = end_time - start_time
+
+            score = calculate_score(digits, tries, elapsed)
+            time_str = format_time(elapsed)
+
+            print()
+            print("========== RESULT ==========")
+            print(f"正解！ 答えは {secret}")
+            print(f"解答回数 : {tries}回")
+            print(f"クリア時間 : {time_str}")
+            print(f"スコア : {score}")
+            print("============================")
+            break
 
         if tries >= max_tries:
             print(f"ゲームオーバー！答えは {secret} でした。")
