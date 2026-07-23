@@ -2,6 +2,7 @@ import time
 
 from .core import judge, make_secret
 from .result import calculate_score, format_time
+from .hint import make_hint
 
 def play():
 
@@ -39,10 +40,9 @@ def play():
 
         # 挑戦回数が最大回数の半分以上になったらヒントを表示
         if tries >= max_tries / 2:
-            if int(guess) > int(secret):
-                print("【ヒント】正解は入力した数字よりも「小さい」です")
-            elif int(guess) < int(secret):
-                print("【ヒント】正解は入力した数字よりも「大きい」です")
+            hint = make_hint(secret, guess)
+            if hint:
+                print(hint)
 
         if hit == digits:
             end_time = time.time()
